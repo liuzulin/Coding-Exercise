@@ -184,4 +184,181 @@ class Solution {
 
 ### compareStringWithFrequency
 compare两个string，只有小写字母。 每个stirng内部可以任意换位置，所以位置不重要。每个 string内部两个letter出现的频率也可以互换，所以这题只需要两个string每个frequency出现的 次数要一样。比如“babzccc” 和 “bbazzcz” 就返回“true”，因为z和c可以互换频率。 但是 “babzcccm” 和 “bbazzczl” 就不一样，因为m在第一个里出现过，第二个里没有出现过。
+```JAVA
+public static boolean compareString(String s1, String s2) {
+        Map<Character, Integer> map1 = new HashMap<Character, Integer>();
+        for(int i=0; i<s1.length(); i++) {
+            map1.put(s1.charAt(i), map1.getOrDefault(s1.charAt(i), 0) + 1);
+        }
+
+        Map<Character, Integer> map2 = new HashMap<Character, Integer>();
+        for(int i=0; i<s2.length(); i++) {
+            map2.put(s2.charAt(i), map2.getOrDefault(s2.charAt(i), 0) + 1);
+        }
+        for(char ch : map1.keySet()) {
+            if(!map2.containsKey(ch)) {
+                return false;
+            }
+        }
+        for(char ch : map2.keySet()) {
+            if(!map1.containsKey(ch)) {
+                return false;
+            }
+        }
+        Map<Integer, Integer> countS1 = new HashMap<Integer, Integer>();
+        for(char ch : map1.keySet()) {
+            int freq = map1.get(ch);
+            countS1.put(freq, countS1.getOrDefault(freq, 0) + 1);
+        }
+
+        Map<Integer, Integer> countS2 = new HashMap<Integer, Integer>();
+        for(char ch : map2.keySet()) {
+            int freq = map2.get(ch);
+            countS2.put(freq, countS2.getOrDefault(freq, 0) + 1);
+        }
+
+        if(s1.length() != s2.length()) {
+            return false;
+        }
+        for(int freq : countS1.keySet()) {
+            if(countS1.get(freq) != countS2.get(freq)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+```
+
+### findEvenDigit
+Find how many numbers have even digit in a list. Ex.Input: A = [12, 3, 5, 3456] Output: 2
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		int[] nums = {1, 23, 3456, 2, 0};
+		Solution sol = new Solution();
+		int res = sol.findEvenDigit(nums);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public int findEvenDigit(int[] nums) {
+		int res = 0;
+		for (int i: nums) {
+			String cur = String.valueOf(i);
+			if (cur.length()%2 == 0) {
+				res++;
+			}
+		}
+		return res;
+	}
+}
+```
+
+### findMostCommonElements
+Input: A = [2, 2, 3, 3, 5] Output: [2, 3] 
+```JAVA
+```
+
+### maxRibbon
+Given a list representing the length of ribbon, and the target number "k" parts of ribbon. we want to cut ribbon into k parts with the same size, at the same time we want the maximum size.
+Ex.
+Input: A = [1, 2, 3, 4, 9], k = 5
+Output: 3
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		int[] a = {1,2,3,4,9};
+		int k = 5;
+		Solution sol = new Solution();
+		int res = sol.maxRibbon(a, k);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public int maxRibbon(int[] a, int k) {
+		int right = 0;
+		for (int i: a) {
+			right += i;
+		}
+		int left = 0;
+		int max = 0;
+		while (left <= right) {
+			int mid = (left + right)/2;
+			int part = 0;
+			for (int i = 0; i < a.length; i++) {
+				part = part + a[i]/mid;
+			}
+			if (part >= k) {
+				max = Math.max(max, mid);
+				left = mid + 1;
+			} else {
+				right = mid - 1;
+			}
+		}
+		return max;
+	}
+}
+```
+
+### goodTuple
+Give an array and find the count of a pair number and a
+single number combination in a row of this array. Target array is
+a[i - 1], a, a[i + 1]
+```JAVA
+```
+
+### rotateDiagonal
+Don't know what it is talking about
+
+
+### divideSubstring
+Give a number ​n​ and digit number ​k​ find all serial substring is able to divisible n.
+Input: n = 120, k = 2 Output: 2
+Explain:
+120 -> 12 and 20 120 % 12 == 0 (O)
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		String input = "120";
+		int k = 2;
+		Solution sol = new Solution();
+		int res = sol.divideSubstring(input, k);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public int divideSubstring(String input, int k) {
+		int res = 0;
+		int num = Integer.parseInt(input);
+		HashSet<Integer> set = new HashSet<>();
+		for (int i = 0; i <= input.length() - k; i++) {
+			String temp = input.substring(i,i+k);
+			int value = Integer.parseInt(temp);
+			if (!set.contains(value) && value != 0) {
+				if (num % value == 0) {
+					res++;
+				}
+			}
+			set.add(value);
+		}
+		return res;
+	}
+}
+```
 
