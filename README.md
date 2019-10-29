@@ -323,7 +323,7 @@ Don't know what it is talking about
 
 
 ### divideSubstring
-Give a number ​n​ and digit number ​k​ find all serial substring is able to divisible n.
+Give a number n and digit number k, find all serial substring is able to divisible n.
 Input: n = 120, k = 2 Output: 2
 Explain:
 120 -> 12 and 20 120 % 12 == 0 (O)
@@ -363,8 +363,8 @@ class Solution {
 ```
 
 ### sumOfString
-给两串字符串，每个char就是一个digit，然后从后往前加起来，把结果放到一 个字符串输出，挺简单的。​​​​​​​​​​​​​​​​​​​e.g. '99' + '99' = '1818'
-如果写Java的话最好用StringBuilder, ​​​​​​​​​​​​​​​​​​​String 会 TLE
+给两串字符串，每个char就是一个digit，然后从后往前加起来，把结果放到一 个字符串输出，挺简单的。e.g. '99' + '99' = '1818'
+如果写Java的话最好用StringBuilder,String 会 TLE
 ```JAVA
 package test;
 
@@ -594,6 +594,57 @@ class Solution {
 			}
 		}
 		return res;
+	}
+}
+```
+
+### sortDiagonal
+diagonalsSort
+int fun(int[][] a), 把一个 matrix 按斜线顺序重排
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		int[][] matrix = {{8,4,1},{4,4,1},{4,8,9}};
+		Solution sol = new Solution();
+		sol.sortDiagonal(matrix);
+		System.out.println(Arrays.toString(matrix[0]));
+		System.out.println(Arrays.toString(matrix[1]));
+		System.out.println(Arrays.toString(matrix[2]));
+	}
+}
+
+class Solution {
+	public void sortDiagonal(int[][] matrix) {
+		if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+			return;
+		}
+		int m = matrix.length;
+		int n = matrix[0].length;
+		for (int i = 0; i < n; i++) {
+			List<Integer> list = new ArrayList<>();
+			for (int j = 0; j < n - i; j++) {
+				list.add(matrix[j][j+i]);
+			}
+			Collections.sort(list);
+			for (int j = 0; j < n -i; j++) {
+				matrix[j][j+i] = list.get(j);
+			}
+			list.clear();
+			if (i != 0) {
+				for (int j = 0; j < n -i; j++) {
+					list.add(matrix[j+i][j]);
+				}
+				Collections.sort(list);
+				for (int j = 0; j < n-i; j++) {
+					matrix[j+i][j] = list.get(j);
+				}
+			}
+		}
+		return;
 	}
 }
 ```
