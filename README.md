@@ -554,3 +554,48 @@ class Solution {
 }
 ```
 
+### longestEqualSubarray
+int fun(int[] a), a 由 1 和 0 组成. 求 0，1个数相同的subarray 最大长度.
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		int[] array = {1,0,0,0,1,1,0,0,0,0,0,0};
+		Solution sol = new Solution();
+		int res = sol.longestEqualSubArray(array);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public int longestEqualSubArray(int[] array) {
+		if (array == null || array.length == 0) {
+			return 0;
+		}
+		int res = 0;
+		for (int i : array) {
+			if (i == 0) {
+				i = -1;
+			}
+		}
+		int[] dp = new int[array.length + 1];
+		dp[0] = 0;
+		for (int i = 1; i < dp.length; i++) {
+			dp[i] = array[i-1] + dp[i-1];
+		}
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (dp[i] == dp[j]) {
+					res = Math.max(res, i-j);
+				}
+			}
+		}
+		return res;
+	}
+}
+```
+
+
