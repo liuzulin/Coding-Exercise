@@ -362,3 +362,195 @@ class Solution {
 }
 ```
 
+### sumOfString
+给两串字符串，每个char就是一个digit，然后从后往前加起来，把结果放到一 个字符串输出，挺简单的。​​​​​​​​​​​​​​​​​​​e.g. '99' + '99' = '1818'
+如果写Java的话最好用StringBuilder, ​​​​​​​​​​​​​​​​​​​String 会 TLE
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		String a = "98";
+		String b = "99";
+		Solution sol = new Solution();
+		String res = sol.sumOfString(a, b);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public String sumOfString(String a, String b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return a;
+		}
+		int i = a.length()-1;
+		int j = b.length()-1;
+		StringBuilder sb = new StringBuilder();
+		while (i >= 0 && j >= 0) {
+			char ch1 = a.charAt(i);
+			char ch2 = b.charAt(j);
+			int value1 = ch1 - '0';
+			int value2 = ch2 - '0';
+			int sum = value1 + value2;
+			while (sum > 0) {
+				sb.append(sum % 10);
+				sum = sum /10;
+			}
+			i = i -1;
+			j = j -1;
+		}
+		while (i >= 0) {
+			sb.append(a.charAt(i));
+			i = i -1;
+		}
+		while (j >= 0) {
+			sb.append(b.charAt(j));
+			j = j -1;
+		}
+		return sb.reverse().toString();
+	}
+}
+```
+
+### maxArithmeticLength
+Suppose we have array a and b (no duplicates & sorted) a = [0,4,8,20]
+b = [5,7,12,16,22]
+Suppose u can pick any number of element from b (could be 0), and u want to insert them into array a such that all elements in a are increasing by certain number,
+so in this example u can pick "12, 16" from b and append into a such that a = [0,4,8,12,16,20], which increase by 4 for each element
+write a function to return the maximum number of element in a after appending elements from b (in the exmaple above the result is 6), if there is no such case, return -1
+
+### removeExactOneCharacter
+remove exact one digit char from string s or t, so that s < t; input: String s1,s2 (lower case letters and digits)
+output: number of ways to remove the digit char.
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		String str1 = "h";
+		String str2 = "aj";
+		Solution sol = new Solution();
+		int res = sol.removeExactOne(str1, str2);
+		System.out.print(res);
+	}
+}
+
+class Solution {
+	public int removeExactOne(String str1, String str2) {
+		if (str1 == null && str2 == null) {
+			return 0;
+		}
+		if (str1 == null) {
+			return str2.length();
+		}
+		if (str2 == null) {
+			return 0;
+		}
+		if (str1.length() == 0 && str2.length() == 0) {
+			return 0;
+		}
+		if (str1.length() == 0) {
+			return str2.length();
+		}
+		if (str2.length() == 0) {
+			return 0;
+		}
+		int res = 0;
+		if (str1.charAt(0) < str2.charAt(0)) {
+			res += str1.length() -1 + str2.length() -1;
+			if (compareValue(str1.substring(1), str2) > 0) {
+				res++;
+			}
+			if (compareValue(str1, str2.substring(1))> 0) {
+				res++;
+			}
+		} else if (str1.charAt(0) == str2.charAt(0)) {
+			res = removeExactOne(str1.substring(1), str2.substring(1));
+			if (compareValue(str1.substring(1), str2) > 0) {
+				res++;
+			}
+			if (compareValue(str1, str2.substring(1))> 0) {
+				res++;
+			}
+		} else {
+			if (compareValue(str1.substring(1), str2) > 0) {
+				res++;
+			}
+			if (compareValue(str1, str2.substring(1))> 0) {
+				res++;
+			}
+		}
+		return res;
+	}
+	private int compareValue(String str1, String str2) {
+		return str2.compareTo(str1);
+	}
+}
+```
+
+### frameWindow
+Given an int n, print the *** window frame of the number; Example: input -> n = 6
+output -> [
+"********", --> 8 *
+"* *", -> 2 *加六个' ' (space)
+"* *",
+"* *",
+"* *", "********"
+]
+Input -> n = 3; Output -> [ "***“，
+”* *“，
+”*** ]
+```JAVA
+package test;
+
+import java.util.*;
+
+public class test {
+	public static void main(String[] args) {
+		int n = 6;
+		Solution sol = new Solution();
+		char[][] res = null;
+		try {
+			res = sol.frameWindow(n);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.print(Arrays.toString(res[0]));
+	}
+}
+
+class Solution {
+	public char[][] frameWindow(int n) throws Exception {
+		if (n <= 1) {
+			return null; 
+		}
+		char[][] res = new char[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i == 0 || i == n-1) {
+					res[i][j] = '*';
+				} else {
+					if (j == 0 || j == n-1) {
+						res[i][j] = '*';
+					} else {
+						res[i][j] = ' ';
+					}
+				}
+			}
+		}
+		return res;
+	}
+}
+```
+
