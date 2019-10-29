@@ -1,4 +1,4 @@
-# Some-coding-exercises-
+# Coding Challenges
 ## Quora
 ### coolFeature   
 这个题要注意有18个hidden test case, 我有两个没过超时了。
