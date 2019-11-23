@@ -26,4 +26,6 @@
 
 ### array中所有数字出现了n次但是有一个数字不是，找到那个数。可以用hashmap做，也可以过。面试官想的方法是用bitwise，然后分析一下各种方法的优缺点。
 
+### LC839 Similar String Group
 
+### LC443 String Compression
