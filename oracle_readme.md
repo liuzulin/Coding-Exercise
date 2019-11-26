@@ -29,3 +29,15 @@
 ### LC839 Similar String Group
 
 ### LC443 String Compression
+
+### LC36 Valid Sudoku
+
+### Coding: If is Complete Binary Tree
+
+### 友善国人小哥，不知道lc有没有原题，就是给“1 2 + 3 *” 对应的算数式是（1 + 2）* 3输出0，不用考虑优先级，用一个stack做就好，follow up是如果实际应用中有很多新的符号，比如a & b = a * b - a，同时需要不断添加新的符号应该怎么处理，有点OOD的意思了，思路就是不同的符号使用不同subclass，也聊到了异常处理的问题
+
+### Remove node in BST
+
+### OOD car rental system
+
+
